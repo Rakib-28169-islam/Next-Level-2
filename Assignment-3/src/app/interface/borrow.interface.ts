@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
-import { ICreateData } from "./book.interface";
 
-export interface IBorrow  extends ICreateData {
+
+export interface IBorrow  {
   book: Types.ObjectId;
   quantity: number;
   dueDate: Date;

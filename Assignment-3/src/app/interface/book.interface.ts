@@ -1,8 +1,6 @@
-export interface ICreateData{
-   createdAt?: Date;
-  updatedAt?: Date;
-}
-export interface IBook extends ICreateData {
+import mongoose from "mongoose";
+
+export interface IBook extends mongoose.Document {
   title: string;
   author: string;
   genre:
@@ -16,5 +14,9 @@ export interface IBook extends ICreateData {
   description?: string;
   copies: number;
   available: boolean;
+
+
+  isAvailableCopies: (quantity: number) => Promise<boolean>;
+isValidDueDate: (dueDate: Date) => boolean;
   
 }

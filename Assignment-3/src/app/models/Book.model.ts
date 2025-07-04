@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 import { IBook } from "../interface/book.interface";
 import { z } from "zod";
 
-
 const bookSchema = new Schema<IBook>(
   {
     title: {
@@ -26,6 +25,7 @@ const bookSchema = new Schema<IBook>(
         "BIOGRAPHY",
         "FANTASY",
       ],
+      message: "Genre must be one of the predefined values",
     },
     isbn: {
       type: String,
@@ -58,19 +58,34 @@ const bookSchema = new Schema<IBook>(
   }
 );
 
-
-
-
 export const createZodBookSchema = z.object({
   title: z.string().min(1, "Title is required"),
   author: z.string().min(1, "Author is required"),
-  genre: z.enum(["FICTION", "NON_FICTION", "SCIENCE", "HISTORY", "BIOGRAPHY", "FANTASY"]),
+  genre: z.enum([
+    "FICTION",
+    "NON_FICTION",
+    "SCIENCE",
+    "HISTORY",
+    "BIOGRAPHY",
+    "FANTASY",
+  ]),
   isbn: z.string().min(1, "ISBN is required"),
   description: z.string().optional(),
   copies: z.number().int().min(0, "Copies must be a positive number"),
   available: z.boolean().optional().default(true),
 });
 
-
-const BookModel = model<IBook>("Books",bookSchema);
+bookSchema.methods.isAvailableCopies =async function (quantity: number) {
+  if (this.copies < quantity) {
+    return false;
+  }
+  this.copies -= quantity;
+  this.available = this.copies > 0;
+  await this.save();
+  return true;
+};
+bookSchema.methods.isValidDueDate = function (dueDate: string) {
+    return new Date(dueDate) > new Date();
+}
+const BookModel = model<IBook>("Books", bookSchema);
 export default BookModel;
