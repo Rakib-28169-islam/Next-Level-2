@@ -15,13 +15,13 @@ export const globalErrorHandler: any = (
     res.status(400).json({
       message: "Invalid ObjectId",
       success: false,
-      errors: err.message,
+      error: err.message,
     });
   } else {
     res.status(500).json({
       message: "Internal Server Error",
       success: false,
-      errors: err.message,
+      error: err.message,
     });
   }
 };

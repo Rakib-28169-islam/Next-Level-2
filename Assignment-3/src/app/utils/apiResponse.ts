@@ -9,6 +9,7 @@ export const apiResponse = (
   error?: any
 ) => {
 
+  
   const err = error
     ? {
         name: error?.name,
@@ -16,7 +17,7 @@ export const apiResponse = (
         path: error?.path,
         value: error?.value,
       }
-    : undefined;
+    : null;
 
   const response: any = {
     success,
@@ -24,9 +25,12 @@ export const apiResponse = (
   };
 
   if (success) {
-    if (data !== undefined && data !== null) response.data = data;
+    if (data !== null) response.data = data;
+    else if ( err === null && data === null) response.data = null;
+
   } else {
     if (err !== undefined && err !== null) response.error = err;
+    
   }
 
   return res.status(statusCode).json(response);

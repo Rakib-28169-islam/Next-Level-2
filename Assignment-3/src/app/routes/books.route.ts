@@ -15,11 +15,15 @@ booksRoute.post("/", async (req: Request, res: Response, next) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(400).json({
-        success: false,
-        message: "Failed to create book",
-        error: err.message,
-    })
+    if (err instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json(validationError(err));
+    } else if (err.name === "MongooseError") {
+      return apiResponse(res, 400, false, "Mongoose Error", null, {
+        name: err.name,
+        message: err.message,
+      });
+    }
+    next(err);
   }
 });
 
@@ -51,11 +55,7 @@ booksRoute.get("/", async (req: Request, res: Response, next) => {
       .sort({ [sortBy as string]: sort === "asc" ? 1 : -1 })
       .limit(limit as number);
 
-    res.status(200).json({
-      success: true,
-      message: "Books retrieved successfully",
-      data: result,
-    });
+    return apiResponse(res, 200, true, "Books retrieved successfully", result);
   } catch (err: any) {
     next(err);
   }
@@ -65,18 +65,17 @@ booksRoute.get("/:id", async (req: Request, res: Response, next) => {
   const { id } = req.params;
   try {
     const result = await BookModel.findById(id);
-    let message = "";
-    if (!result) {
-      message = "No book found with this ID";
-    } else {
-      message = "Book retrieved successfully";
-    }
 
-    res.status(200).json({
-      success: true,
-      message: message,
-      data: result,
-    });
+    if (!result) {
+      return apiResponse(res, 404, false, "Book not found", null, {
+        name: "BookNotFoundError",
+        message: `Book not found with ID: ${id}`, //`No book found with ID: ${id}`,
+        path: "id",
+        value: id,
+      });
+    } else {
+      return apiResponse(res, 200, true, "Book retrieved successfully", result);
+    }
   } catch (err: any) {
     next(err);
   }
@@ -91,23 +90,15 @@ booksRoute.put("/:id", async (req: Request, res: Response, next) => {
       runValidators: true,
     });
     if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: "Book not found",
-        error: {
-          name: "NotFoundError",
-          message: `No book found with ID: ${id}`,
-          path: "id",
-          value: id,
-        },
-      });
+      return apiResponse(res,404,false,"Book not found",null,{
+        name: "NotFoundError",
+        message: `No book found with ID: ${id}`,
+        path: "id",
+        value: id,
+      })
     }
 
-    res.status(200).json({
-      success: true,
-      message: "Book updated successfully",
-      data: result,
-    });
+    return apiResponse(res, 200, true, "Book updated successfully", result);
   } catch (err: any) {
     next(err);
   }
@@ -117,18 +108,14 @@ booksRoute.delete("/:id", async (req: Request, res: Response, next) => {
   try {
     const result = await BookModel.findByIdAndDelete(id);
     if (!result) {
-      return apiResponse(res,404,false,"Book not found",null,{
+      return apiResponse(res, 404, false, "Book not found", null, {
         name: "NotFoundError",
         message: `No book found with ID: ${id}`,
         path: "id",
-        value: id,  
-      })
+        value: id,
+      });
     }
-    res.status(200).json({
-        success: true,
-        message: "Book deleted successfully",
-        data: null
-    })
+   return apiResponse(res, 200, true, "Book deleted successfully", null);
   } catch (err: any) {
     next(err);
   }
