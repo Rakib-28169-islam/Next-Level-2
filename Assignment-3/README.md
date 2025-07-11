@@ -58,9 +58,6 @@ e:\Next-level-2\Assignment-3
 │   ├── app.ts
 │   ├── server.ts
 │   └── app/
-│       ├── controllers/
-│       │   ├── books.controller.ts
-│       │   └── borrow.controller.ts
 │       ├── models/
 │       │   ├── Book.model.ts
 │       │   └── Borrow.model.ts
@@ -68,9 +65,6 @@ e:\Next-level-2\Assignment-3
 │       │   ├── book.interface.ts
 │       │   ├── borrow.interface.ts
 │       │   └── error.interface.ts
-│       ├── middlewares/
-│       │   ├── globalErrorHandler.ts
-│       │   ├── validateBody.middleware.ts
 │       ├── routes/
 │       │   ├── books.route.ts
 │       │   └── borrow.route.ts
@@ -82,10 +76,8 @@ e:\Next-level-2\Assignment-3
 - **.env**: Environment variables (MongoDB URL, PORT, etc.)
 - **src/app.ts**: Express app setup
 - **src/server.ts**: Server and database connection entry point
-- **controllers/**: Route handler logic
 - **models/**: Mongoose schemas and models
 - **interfaces/**: TypeScript type definitions
-- **middlewares/**: Custom Express middlewares
 - **routes/**: API route definitions
 - **utils/**: Utility functions (API response, error formatting, etc.)
 
@@ -96,8 +88,8 @@ e:\Next-level-2\Assignment-3
 ## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/library-management-backend.git
-cd library-management-backend
+git clone https://github.com/Rakib-28169-islam/Next-Level-2.git
+cd Assignment-3
 ```
 
 ## 2. Install Dependencies
@@ -107,6 +99,7 @@ npm install
 ```
 
 > You can use your own MongoDB Atlas URL for `DATABASE_URL`.
+> Ex: mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test
 
 ## 3. Build and Run
 
@@ -114,13 +107,6 @@ npm install
 ```bash
 npm run dev
 ```
-
-**Production Build:**
-```bash
-npm run build
-npm start
-```
-
 ---
 
 ## 📬 API Endpoints
@@ -132,7 +118,7 @@ npm start
 | `GET`    | /api/books         | Get all books            |
 | `GET`    | /api/books/:id     | Get a single book        |
 | `POST`   | /api/books         | Create a new book        |
-| `PUT`  | /api/books/:id     | Update a book by ID      |
+| `PUT`    | /api/books/:id     | Update a book by ID      |
 | `DELETE` | /api/books/:id     | Delete a book by ID      |
 
 ### Borrow

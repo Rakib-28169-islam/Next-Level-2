@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { validationError } from "./errorHandler.middleware";
+import { validationError } from "./validationErrorHandaler";
 
 export const globalErrorHandler: any = (
   err: any,

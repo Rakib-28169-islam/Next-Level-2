@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import mongoose from "mongoose";
 import BookModel from "../models/Book.model";
-import { validationError } from "../utils/errorHandler.middleware";
+import { validationError } from "../utils/validationErrorHandaler";
 import { apiResponse } from "../utils/apiResponse";
 
 export const booksRoute = Router();
