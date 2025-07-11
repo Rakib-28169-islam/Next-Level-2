@@ -48,31 +48,46 @@ A robust backend server for managing a library system, built with **Express**, *
 ## 📁 Project Structure
 
 ```
-src/
-├── app.ts
-├── server.ts
-├── app/
-│   ├── controllers/
-│   │   ├── books.controller.ts
-│   │   └── borrow.controller.ts
-│   ├── models/
-│   │   ├── Book.model.ts
-│   │   └── Borrow.model.ts
-│   ├── interfaces/
-│   │   ├── book.interface.ts
-│   │   ├── borrow.interface.ts
-│   │   └── error.interface.ts
-│   ├── middlewares/
-│   │   ├── globalErrorHandler.ts
-│   │   ├── validateBody.middleware.ts
-│   ├── routes/
-│   │   ├── books.route.ts
-│   │   └── borrow.route.ts
-│   ├── utils/
-│   │   ├── apiResponse.ts
-│   │   ├── globalError.ts
-│   │   └── errorHandler.middleware.ts
+e:\Next-level-2\Assignment-3
+├── .env
+├── .gitignore
+├── package.json
+├── README.md
+├── tsconfig.json
+├── src/
+│   ├── app.ts
+│   ├── server.ts
+│   └── app/
+│       ├── controllers/
+│       │   ├── books.controller.ts
+│       │   └── borrow.controller.ts
+│       ├── models/
+│       │   ├── Book.model.ts
+│       │   └── Borrow.model.ts
+│       ├── interfaces/
+│       │   ├── book.interface.ts
+│       │   ├── borrow.interface.ts
+│       │   └── error.interface.ts
+│       ├── middlewares/
+│       │   ├── globalErrorHandler.ts
+│       │   ├── validateBody.middleware.ts
+│       ├── routes/
+│       │   ├── books.route.ts
+│       │   └── borrow.route.ts
+│       ├── utils/
+│       │   ├── apiResponse.ts
+│       │   ├── globalError.ts
+│       │   └── errorHandler.middleware.ts
 ```
+- **.env**: Environment variables (MongoDB URL, PORT, etc.)
+- **src/app.ts**: Express app setup
+- **src/server.ts**: Server and database connection entry point
+- **controllers/**: Route handler logic
+- **models/**: Mongoose schemas and models
+- **interfaces/**: TypeScript type definitions
+- **middlewares/**: Custom Express middlewares
+- **routes/**: API route definitions
+- **utils/**: Utility functions (API response, error formatting, etc.)
 
 ---
 
