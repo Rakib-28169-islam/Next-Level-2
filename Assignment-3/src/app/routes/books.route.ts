@@ -55,6 +55,14 @@ booksRoute.get("/", async (req: Request, res: Response, next) => {
       .sort({ [sortBy as string]: sort === "asc" ? 1 : -1 })
       .limit(limit as number);
 
+    if (result.length === 0) {
+      return apiResponse(res, 404, false, "No books found", null, {
+        name: "NoBooksFoundError",
+        message: "No books found matching the criteria",
+        path: "filter",
+        value: query.filter,
+      });
+    }
     return apiResponse(res, 200, true, "Books retrieved successfully", result);
   } catch (err: any) {
     next(err);
@@ -83,19 +91,25 @@ booksRoute.get("/:id", async (req: Request, res: Response, next) => {
 
 booksRoute.put("/:id", async (req: Request, res: Response, next) => {
   const { id } = req.params;
-  const body = req.body;
+  const { copies } = req.body;
   try {
-    const result = await BookModel.findByIdAndUpdate(id, body, {
-      new: true,
-      runValidators: true,
-    });
+    const result = await BookModel.findByIdAndUpdate(
+      id,
+      {
+        $inc: { copies: copies },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     if (!result) {
-      return apiResponse(res,404,false,"Book not found",null,{
+      return apiResponse(res, 404, false, "Book not found", null, {
         name: "NotFoundError",
         message: `No book found with ID: ${id}`,
         path: "id",
         value: id,
-      })
+      });
     }
 
     return apiResponse(res, 200, true, "Book updated successfully", result);
@@ -115,7 +129,7 @@ booksRoute.delete("/:id", async (req: Request, res: Response, next) => {
         value: id,
       });
     }
-   return apiResponse(res, 200, true, "Book deleted successfully", null);
+    return apiResponse(res, 200, true, "Book deleted successfully", null);
   } catch (err: any) {
     next(err);
   }

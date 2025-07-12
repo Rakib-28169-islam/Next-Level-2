@@ -94,7 +94,7 @@ borrowRoute.get("/", async (req: Request, res: Response, next) => {
       res,
       200,
       true,
-      "Borrows retrieved successfully",
+      "Borrowed books summary retrieved successfully",
       result
     );
   } catch (err: any) {

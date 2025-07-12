@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IBook } from "../interface/book.interface";
-import { z } from "zod";
+
 
 const bookSchema = new Schema<IBook>(
   {
@@ -37,7 +37,7 @@ const bookSchema = new Schema<IBook>(
     copies: {
       type: Number,
       required: [true, "Number of copies is required"],
-      min: [0, "Copies cannot be negative"],
+      min: [0, "Copies must be a positive number"],
     },
     available: {
       type: Boolean,
@@ -58,22 +58,6 @@ const bookSchema = new Schema<IBook>(
   }
 );
 
-export const createZodBookSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  author: z.string().min(1, "Author is required"),
-  genre: z.enum([
-    "FICTION",
-    "NON_FICTION",
-    "SCIENCE",
-    "HISTORY",
-    "BIOGRAPHY",
-    "FANTASY",
-  ]),
-  isbn: z.string().min(1, "ISBN is required"),
-  description: z.string().optional(),
-  copies: z.number().int().min(0, "Copies must be a positive number"),
-  available: z.boolean().optional().default(true),
-});
 
 bookSchema.methods.isAvailableCopies =async function (quantity: number) {
   if (this.copies < quantity) {
