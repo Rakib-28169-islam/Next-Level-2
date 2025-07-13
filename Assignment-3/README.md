@@ -93,14 +93,18 @@ git clone https://github.com/Rakib-28169-islam/Next-Level-2.git
 cd Assignment-3
 ```
 
-## 2. Install Dependencies
+## 2. Update MONGODB_URL 
+
+You can use your own MongoDB Atlas URL for `DATABASE_URL`. Paste the url in your .env fILE
+ Ex: MONGODB_URL = mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test. If you couldn't get the mongoDB url You can run this project. For more information You can check this link https://www.mongodb.com/docs/atlas/tutorial/connect-to-your-cluster/.
+
+
 
 ```bash
-npm install
+ MONGODB_URL = mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test.
+ PORT = 3000
 ```
 
-> You can use your own MongoDB Atlas URL for `DATABASE_URL`. Paste the url in your .env fILE
-> Ex: MONGODB_URL = mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test
 
 ## 3. Build and Run
 
@@ -176,7 +180,7 @@ Content-Type: application/json
 
 **Request**
 ```http
-GET /api/books
+`GET` /api/books
 ```
 
 **Response**
@@ -206,7 +210,7 @@ GET /api/books
 
 **Request**
 ```http
-GET /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`GET` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
 ```
 
 **Response**
@@ -233,7 +237,7 @@ GET /api/books/60f7c2b8e1d3c2a5b8e1d3c2
 
 **Request**
 ```http
-PATCH /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`PATCH` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
 Content-Type: application/json
 
 {
@@ -260,7 +264,7 @@ Content-Type: application/json
 
 **Request**
 ```http
-DELETE /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`DELETE` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
 ```
 
 **Response**
@@ -277,7 +281,7 @@ DELETE /api/books/60f7c2b8e1d3c2a5b8e1d3c2
 
 **Request**
 ```http
-POST /api/borrow
+`POST` /api/borrow
 Content-Type: application/json
 
 {
@@ -308,7 +312,7 @@ Content-Type: application/json
 
 **Request**
 ```http
-GET /api/borrow
+`GET` /api/borrow
 ```
 
 **Response**
@@ -343,7 +347,7 @@ GET /api/borrow
 ## 🔗 Important Links
 
 - [GitHub Repository](https://github.com/Rakib-28169-islam/Next-Level-2/tree/main/Assignment-3)
-- [Live Deployment](#) <!-- Add your live link here -->
+- [Live Deployment](https://library-management-system-mu-nine.vercel.app/) 
 - [Explanation Video](#) <!-- Add your video link here -->
 
 ---
