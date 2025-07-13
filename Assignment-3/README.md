@@ -91,6 +91,7 @@ e:\Next-level-2\Assignment-3
 ```bash
 git clone https://github.com/Rakib-28169-islam/Next-Level-2.git
 cd Assignment-3
+npm i
 ```
 
 ## 2. Update MONGODB_URL 
