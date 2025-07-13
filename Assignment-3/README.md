@@ -351,7 +351,7 @@ Content-Type: application/json
 
 - [GitHub Repository](https://github.com/Rakib-28169-islam/Next-Level-2/tree/main/Assignment-3)
 - [Live Deployment](https://library-management-system-mu-nine.vercel.app/) 
-- [Explanation Video](#) <!-- Add your video link here -->
+- [Explanation Video](https://drive.google.com/file/d/1G72ab6C5E0nzEhVgjbAXu78gDqcYX-aD/view?usp=sharing) 
 
 ---
 
