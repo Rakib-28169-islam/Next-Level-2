@@ -210,8 +210,9 @@ Content-Type: application/json
 
 **Request**
 ```http
-`GET` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`GET` /api/books/:id
 ```
+> `id` means mongodb document'S `_id` check your collections in mongoDB
 
 **Response**
 ```json
@@ -237,13 +238,14 @@ Content-Type: application/json
 
 **Request**
 ```http
-`PATCH` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`PATCH` /api/books/:id
 Content-Type: application/json
 
 {
   "copies": 8
 }
 ```
+> `id` means mongodb document'S `_id` check your collections in mongoDB
 
 **Response**
 ```json
@@ -264,9 +266,9 @@ Content-Type: application/json
 
 **Request**
 ```http
-`DELETE` /api/books/60f7c2b8e1d3c2a5b8e1d3c2
+`DELETE` /api/books/:id
 ```
-
+> `id` means mongodb document'S `_id` check your collections in mongoDB
 **Response**
 ```json
 {
