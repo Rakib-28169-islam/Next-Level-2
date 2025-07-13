@@ -50,6 +50,8 @@ A robust backend server for managing a library system, built with **Express**, *
 ```
 e:\Next-level-2\Assignment-3
 ├── .env
+|__ public/
+|   ├── index.html
 ├── .gitignore
 ├── package.json
 ├── README.md
@@ -63,15 +65,14 @@ e:\Next-level-2\Assignment-3
 │       │   └── Borrow.model.ts
 │       ├── interfaces/
 │       │   ├── book.interface.ts
-│       │   ├── borrow.interface.ts
-│       │   └── error.interface.ts
+│       │   |── borrow.interface.ts  
 │       ├── routes/
 │       │   ├── books.route.ts
 │       │   └── borrow.route.ts
 │       ├── utils/
 │       │   ├── apiResponse.ts
 │       │   ├── globalError.ts
-│       │   └── errorHandler.middleware.ts
+│       │   └── validationErrorHandaler
 ```
 - **.env**: Environment variables (MongoDB URL, PORT, etc.)
 - **src/app.ts**: Express app setup
@@ -98,8 +99,8 @@ cd Assignment-3
 npm install
 ```
 
-> You can use your own MongoDB Atlas URL for `DATABASE_URL`.
-> Ex: mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test
+> You can use your own MongoDB Atlas URL for `DATABASE_URL`. Paste the url in your .env fILE
+> Ex: MONGODB_URL = mongodb+srv://user_name:password@test.yzwhh.mongodb.net/data_base_name?retryWrites=true&w=majority&appName=test
 
 ## 3. Build and Run
 
