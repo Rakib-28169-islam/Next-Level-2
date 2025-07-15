@@ -16,6 +16,7 @@ export const apiResponse = (
         message: error?.message,
         path: error?.path,
         value: error?.value,
+        
       }
     : null;
 

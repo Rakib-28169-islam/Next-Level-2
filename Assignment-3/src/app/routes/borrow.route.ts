@@ -21,7 +21,16 @@ borrowRoute.post("/", async (req: Request, res: Response, next) => {
       const isAvailableCopies = await book.isAvailableCopies(quantity);
       const isValidDueDate = book.isValidDueDate(dueDate);
 
-      if (!isAvailableCopies) {
+      if (isAvailableCopies?.name === "BookNotAvailableError") {
+        return apiResponse(res, 400, false, "Book not available", null, {
+          name: "BookNotAvailableError",
+          message: `Book is not available  at this moment for book ID: ${bookId}  In Stock: ${isAvailableCopies?.copies}`,
+          path: "quantity",
+          value: quantity,
+          
+        });
+      }
+      if (isAvailableCopies?.name === "NotEnoughCopiesError") {
         return apiResponse(
           res,
           400,
@@ -30,9 +39,10 @@ borrowRoute.post("/", async (req: Request, res: Response, next) => {
           null,
           {
             name: "NotEnoughCopiesError",
-            message: `Not enough copies available for book ID: ${bookId}`,
+            message: `Not enough copies available for book ID: ${bookId} In Stock: ${isAvailableCopies?.copies}`,
             path: "quantity",
             value: quantity,
+            
           }
         );
       }
@@ -44,13 +54,21 @@ borrowRoute.post("/", async (req: Request, res: Response, next) => {
           value: dueDate,
         });
       }
-      const borrow = await BorrowModel.create({
-        book: bookId,
-        quantity,
-        dueDate,
-      });
+      if (isAvailableCopies.name === "Success" && isValidDueDate) {
+        const borrow = await BorrowModel.create({
+          book: bookId,
+          quantity,
+          dueDate,
+        });
 
-      return apiResponse(res, 201, true, "Borrow Created Successfully", borrow);
+        return apiResponse(
+          res,
+          201,
+          true,
+          "Borrow Created Successfully",
+          borrow
+        );
+      }
     }
   } catch (err: any) {
     next(err);
@@ -68,7 +86,6 @@ borrowRoute.get("/", async (req: Request, res: Response, next) => {
       },
       {
         $lookup: {
-
           from: "books",
           localField: "_id",
           foreignField: "_id",
@@ -80,7 +97,7 @@ borrowRoute.get("/", async (req: Request, res: Response, next) => {
       },
       {
         $project: {
-          _id:0,
+          _id: 0,
           book: {
             isbn: "$bookDetails.isbn",
             title: "$bookDetails.title",

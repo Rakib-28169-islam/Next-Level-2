@@ -60,13 +60,25 @@ const bookSchema = new Schema<IBook>(
 
 
 bookSchema.methods.isAvailableCopies =async function (quantity: number) {
-  if (this.copies < quantity) {
-    return false;
+  if(this.available === false) {
+      return {
+        name: "BookNotAvailableError",
+        message: "Book is not available",
+        copies :this.copies,
+      }
   }
+  if (this.copies < quantity) {
+    return {
+       name: "NotEnoughCopiesError",
+      message: "Not enough copies available",
+      copies: this.copies,
+    };
+  }
+
   this.copies -= quantity;
   this.available = this.copies > 0;
   await this.save();
-  return true;
+  return { name: "Success", message: "Copies updated successfully"};
 };
 bookSchema.methods.isValidDueDate = function (dueDate: string) {
     return new Date(dueDate) > new Date();

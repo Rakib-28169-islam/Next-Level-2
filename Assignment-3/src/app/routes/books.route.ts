@@ -97,6 +97,7 @@ booksRoute.put("/:id", async (req: Request, res: Response, next) => {
       id,
       {
         $inc: { copies: copies },
+        $set: { available: true },
       },
       {
         new: true,

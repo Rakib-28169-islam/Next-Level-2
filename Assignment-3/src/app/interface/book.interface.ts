@@ -16,7 +16,7 @@ export interface IBook extends mongoose.Document {
   available: boolean;
 
 
-  isAvailableCopies: (quantity: number) => Promise<boolean>;
+  isAvailableCopies: (quantity: number) => Promise<{ name: string; message: string,copies?: number }>;
 isValidDueDate: (dueDate: Date) => boolean;
   
 }
